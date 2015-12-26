@@ -1,7 +1,4 @@
-## CNAM To-do:
+## EveryonePHP To-do:
 
-1. Add ability to save PDF copy of dossier
-2. Add modal with checkboxes to select data to query
-3. Don't query *everything* by default - costs too much
-4. Add ability to export dossier as CSV
-5. Brainstorm more features?
+1. Clean up returned result array. No point in calling `$EveryonePHP->data->data->[datapoint]` so we need to clean this up.
+2. Add more documentation on how `EveryonePHP` handles errors and returns data.
