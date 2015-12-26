@@ -1,5 +1,5 @@
 <?php
-class APICaller {
+class EveryonePHP {
 
    public $http;
    public $error;
