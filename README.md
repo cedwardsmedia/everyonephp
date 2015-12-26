@@ -1,14 +1,14 @@
-# CNAM v2.0.0
+# EveryonePHP v0.0.1-dev
 
-[![Source](https://img.shields.io/badge/source-cedwardsmedia/cnam-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
-![Version](https://img.shields.io/badge/version-2.0.0-brightgreen.svg?style=flat-square)
+[![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
+![Version](https://img.shields.io/badge/version-0.0.0--dev-brightgreen.svg?style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square "License")](./LICENSE)
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
 
 ## Note ##
-_CNAM_ has recently forked into two projects - the command-line tool, which exists in this repository, and webCNAM, the web-based version found at [https://github.com/cedwardsmedia/webcnam](https://github.com/cedwardsmedia/webcnam). The underlying library that makes the queries to EveryoneAPI is now the stand-alone project, [EveryonePHP](https://github.com/cedwardsmedia/everyonephp)
+_EveryonePHP_ is a PHP library for querying EveryoneAPI. The original code (and thus, pre-1.0 code, was originally developed as part of [_CNAM_](https://github.com/cedwardsmedia/cnam)). Due to the growing maturity of _CNAM_ and the lack of a reliable PHP class for EveryoneAPI, I decided to fork the original code into a stand-alone library that everyone can use, and continue to expand [_CNAM-CLI_](https://github.com/cedwardsmedia/cnam-cli) and [_webCNAM_](https://github.com/cedwardsmedia/webcnam) separately.
 
-_CNAM_ is a web-based reverse phone number lookup tool written in PHP and sourced by [EveryoneAPI](https://www.everyoneapi.com/). In order to use CNAM, you must have an [EveryoneAPI account](https://www.everyoneapi.com/sign-up)  with [available funds](https://www.everyoneapi.com/pricing).
+In order to use _EveryonePHP_, you must have an [EveryoneAPI account](https://www.everyoneapi.com/sign-up)  with [available funds](https://www.everyoneapi.com/pricing).
 
 ## Installation
 
@@ -19,27 +19,59 @@ _CNAM_ is a web-based reverse phone number lookup tool written in PHP and source
 5. Ensure `cnam.php` executable by running `chmod +x /path/to/cnam.php`.
 
 ## Usage
-To perform a lookup of a phone number: `php /path/to/cnam.php 5551234567`
 
-**Note:** for easier usage, you may wish to create a symlink to cnam.php. To do this, simply execute `sudo ln -s /path/to/cnam.php /usr/local/cnam`. Now, you can execute cnam by simply running `cnam [phone number]` without including the path to cnam.php.
 
-### Data Point Flags
+```
+// Instantiate EveryonePHP
+$api = new EveryonePHP();
+```
+```
+// Perform EveryoneAPI query
+$api->query($phone, $datapoints);
+```
+```
+// Check for Error
+if ($api->error) {               // If there's an error
+   echo "Error: $api->error";    // Print it out
+   exit(1);                      // Exit with status 1
+}
+```
+```
+// Print results
+print_r($api->data->data->[datapoint]);
+```
+### Data Point Selection
 
-Running `cnam <phone_number>` without specifying any data point flags will cause CNAM to return all available data for the provided number.
+Just as with the EveryoneAPI, issuing a query without specifying data points will return all available information for the provided phone number. Alternatively, you may supply a comma separated list of data points to return.
 
-Providing one or more data point flags will cause CNAM to return ONLY the selected data points. Example: `cnam --name --carrier 5551234567` will cause CNAM to return only the name and carrier for the provided number.
+- Use `name` to query for the *name* data point.
+- Use `profile` to query for the *profile* data point.
+- Use `cnam` to query for the *cnam* data point.
+- Use `gender` to query for the *gender* data point.
+- Use `image` to query for the *image* data point.
+- Use `address` to query for the *address* data point.
+- Use `location` to query for the *location* data point. (Included free with `address`)
+- Use `provider` to query for the *provider* data point.
+- Use `carrier` to query for the *carrier* data point.
+- Use `carrier_o` to query for the *carrier_o* data point. (Included free with `carrier`)
+- Use `linetype` to query for the *linetype* data point.
 
-- Use the `--name` flag to query for the *name* data point.
-- Use the `--profile` flag to query for the *profile* data point.
-- Use the `--cnam` flag to query for the *cnam* data point.
-- Use the `--gender` flag to query for the *gender* data point.
-- Use the `--image` flag to query for the *image* data point.
-- Use the `--address` flag to query for the *address* data point.
-- Use the `--location` flag to query for the *location* data point. (Included free with `--address`)
-- Use the `--provider` flag to query for the *provider* data point.
-- Use the `--carrier` flag to query for the *carrier* data point.
-- Use the `--carrier_o` flag to query for the *carrier_o* data point. (Included free with `--carrier`)
-- Use the `--linetype` flag to query for the *linetype* data point.
+Example:
+```
+// Set phone number
+$phone = 5551234567;
+
+// Set data point selection
+$datapoints = "name,gender,carrier"
+
+// Instantiate EveryonePHP
+$api = new EveryonePHP();
+
+// Perform EveryoneAPI query
+$api->query($phone, $datapoints);
+```
+
+The above code would populate `$api->data->data->name`, `$api->data->data->gender`, `$api->data->data->carrier` (and `$api->data->data->carrier_o` because it is returned free with `carrier`).
 
 ## Contributing
 
@@ -55,7 +87,7 @@ Concept and original codebase: Corey Edwards ([@cedwardsmedia](https://www.twitt
 Optimization and Debugging: Brian Seymour ([@eBrian](http://bri.io))
 
 ## License
-_CNAM_ is licensed under the **MIT License**. See LICENSE for more.
+_EveryonePHP_ is licensed under the **MIT License**. See LICENSE for more.
 
 ---
-**Disclaimer**: _CNAM_ is not endorsed by, sponsored by, or otherwise associated with [OpenCNAM](http://www.opencnam.com), [EveryoneAPI](http://www.everyoneapi.com), or [Telo USA, Inc](http://www.telo.com).
+**Disclaimer**: _EveryonePHP_ is not endorsed by, sponsored by, or otherwise associated with [OpenCNAM](http://www.opencnam.com), [EveryoneAPI](http://www.everyoneapi.com), or [Telo USA, Inc](http://www.telo.com).
