@@ -58,8 +58,14 @@ Only `$phone` is required for this function. The function performs the query aga
 ### Step 5: Print the Results
 ```php
 // Print results
+
+// Print first name
 echo $api->results->data->expanded_name->first;
+
+// Print last name
 echo $api->results->data->expanded_name->last;
+
+// Print carrier name
 echo $api->results->data->carrier->name;
 ```
 EveryonePHP converts the JSON response from EveryoneAPI into an associative array. This allows us to access the entire response for our application. In the above example, we print the first name, last name, and carrier for the given phone number.
