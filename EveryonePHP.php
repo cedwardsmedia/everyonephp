@@ -1,112 +1,55 @@
 <?php
 class EveryonePHP {
 
-   public $http;
-   public $error;
+    public $http;
+    public $error; // Contains error messages
 
-   public $sid; // EveryoneAPI Account SID
-   public $token; // EveryoneAPI Account Auth Token
+    public $sid; // EveryoneAPI Account SID
+    public $token; // EveryoneAPI Account Auth Token
 
-   public $data;  // Query Results Array
+    public $query;  // Query Results Array
 
-   public $cost; // Query Cost
+    function __construct() {
+        $this->client = new \GuzzleHttp\Client();
+    }
 
-   function __construct() {
+    public function query($phone, $data) {
 
+        // Implode our $datapoints array into a comma-separated list
+        if (isset($datapoints)) {
+            $datapoints = implode(',', $data);
+        }
 
-     $this->client = new \GuzzleHttp\Client();
+        // Query EveryoneAPI and handle error-based HTTP Response Codes as exceptions
+        try {
+            $response = $this->client->get("http://api.everyoneapi.com/v".APIVersion."/phone/$phone?data=$datapoints&account_sid=".SID."&"."auth_token=".TOKEN."&");
 
-     // Check config for credentials first. If they aren't set, then set them from the cookie. If neither is set, these vars will be null.
-     include 'config.php';
+        } catch (Exception $exception) {
+            if (strstr($exception->getMessage(), '400')) {
+             $this->error = "HTTP 400 Bad Request: Invalid phone number.";
+            } elseif (strstr($exception->getMessage(), '401')) {
+             $this->error = "HTTP 401 Unauthorized: Check API credentials.";
+            } elseif (strstr($exception->getMessage(), '402')) {
+             $this->error = "HTTP 402 Payment Required: Check EveryoneAPI account balance.";
+            } elseif (strstr($exception->getMessage(), '403')) {
+             $this->error = "HTTP 403 Forbidden: You've been rate-limited.";
+            } elseif (strstr($exception->getMessage(), '404')) {
+             $this->error = "HTTP 404 Not Found: Phone number not found in EveryoneAPI database.";
+            } elseif (strstr($exception->getMessage(), '500')) {
+                $this->error = "HTTP 500 Internal Server Error: EveryoneAPI is currently experiencing technical difficulties.";
+            } elseif (strstr($exception->getMessage(), '503')) {
+                $this->error = "HTTP 503 Service Unavailable: EveryoneAPI is currently experiencing service outages.";
+            } else {
+                $this->error = "An error as occurred. GuzzleHttp said: " . $exception->getMessage();
+            }
 
-     // Check for $SID first
-     if ($SID) {
-        $this->sid = $SID;
-     } else {
-     $this->sid   = $_COOKIE['sid']   ? $_COOKIE['sid']   : '';
-     }
+            return null;
+        }
 
-     // Check for $TOKEN
-     if ($TOKEN) {
-        $this->token = $TOKEN;
-     } else {
-     $this->token = $_COOKIE['token'] ? $_COOKIE['token'] : '';
-     }
-   }
+        // Convert the EveryoneAPI JSON response to a PHP Array
+        $this->results = json_decode($response->getBody());
 
-   public function api_call($phone, $datapoints) {
-
-      session_unset(); // Reset session variables for new query
-
-      $phone = preg_replace('/[^0-9,.\+]/', '', $phone);
-
-      if (!preg_match('/^(\+1)?[0-9]{10}$/', $phone)) {
-         $this->error = 'Invalid phone number.';
-         return null;
-      }
-
-      try {
-         $response = $this->client
-             ->get("https://api.everyoneapi.com/v" . APIVersion . "/phone/$phone?data=$datapoints&".
-                 "account_sid={$this->sid}&".
-                 "auth_token={$this->token}&");
-      } catch (\Exception $exception) {
-         if ($exception->getMessage() == 'Client error: 400') {
-             $this->error = 'Bad request, doofus. Did you enter a real phone number?';
-         } elseif ($exception->getMessage() == 'Client error: 401') {
-             $this->error = 'You need to login, doofus. Did you set your credentials?';
-         } elseif ($exception->getMessage() == 'Client error: 402') {
-             $this->error = 'Hey doofus, EveryoneAPI isn\'t free! Time to top off your account balance.';
-         } elseif ($exception->getMessage() == 'Client error: 403') {
-             $this->error = 'Way to go, doofus. You\'ve been rate limited.';
-         } elseif ($exception->getMessage() == 'Client error: 404') {
-             $this->error = 'Looks like I\'m the doofus this time. I can\'t find that phone number in the EveryoneAPI database.';
-         } elseif ($exception->getMessage() == 'Client error: 503') {
-             $this->error = 'Those doofuses at EveryoneAPI are having problems fulfilling this query. Please try again later.';
-         } else {
-             $this->error = 'An unknown error occurred';
-         }
-
-         return null;
-      }
-
-      $this->data = json_decode($response->getBody());
-
-      // Populate $_SESSION with results
-      $_SESSION['firstname']= $this->data->data->expanded_name->first;
-      $_SESSION['lastname']= $this->data->data->expanded_name->last;
-      $_SESSION['gender']= $this->data->data->gender;
-      $_SESSION['linetype']= $this->data->data->linetype;
-      $_SESSION['image']= $this->data->data->image->large;
-      $_SESSION['phone']= $phone;
-      $_SESSION['city']= $this->data->data->location->city;
-      $_SESSION['state']= $this->data->data->location->state;
-      $_SESSION['zip']= $this->data->data->location->zip;
-      return $this->data;
-   }
-
-   public function get_cost() {
-      $this->cost = '$' . abs($this->data->pricing->total);
-
-      return $this->cost;
-   }
-
-   public function get_title() {
-      $title = '';
-
-      if ($this->data) {
-         $title = 'Dossier for ';
-         if ($this->data->number) {
-             $title .= $this->data->number;
-         } else {
-             $title .= $this->data->data->expanded_name->first . ' ' . $this->data->data->expanded_name->last;
-         }
-         $title .= ' provided by CNAM';
-      } else {
-         $title .= 'Reverse Phone Lookup powered by EveryoneAPI';
-      }
-
-      return $title;
-   }
-
+        // Return the Query Results Array
+        return $this->results;
+    }
 }

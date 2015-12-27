@@ -1,7 +1,7 @@
-# EveryonePHP v0.0.1-dev
+# EveryonePHP v1.0.0β
 
 [![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
-![Version](https://img.shields.io/badge/version-0.0.1--dev-brightgreen.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg?style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square "License")](./LICENSE)
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
 
@@ -12,23 +12,59 @@ In order to use _EveryonePHP_, you must have an [EveryoneAPI account](https://ww
 
 ## Installation
 
-1. Clone the repo.
-2. Run `php composer.phar install`
-3. Rename `config.default.php` to `config.php`.
-4. Edit `config.php` and add your EveryoneAPI credentials.
-5. Ensure `cnam.php` executable by running `chmod +x /path/to/cnam.php`.
+I highly recommend using _Composer_ to install _EveryonePHP_ for your project. _Composer_ will allow you to automatically install the _GuzzleHttp_ library, which _EveryonePHP_ depends on.
+
+1. Install [Composer](https://getcomposer.org/download/)
+2. `cd` to your project's directory
+3. Run `composer require cedwardsmedia/everyonephp`
+4. Build your amazing project!
+
 
 ## Usage
 
+I have never been a great programmer. As such, I strived to make EveryonePHP as simple to use as possible and I'm always looking to simplify it even more. Let's build a basic EveryoneAPI client using EveryonePHP:
 
+### Step 1: Instantiate EveryonePHP as an Object
 ```
 // Instantiate EveryonePHP
 $api = new EveryonePHP();
 ```
+Creating a new EveryonePHP object allows us to interact with the class.
+
+### Step 2: Set EveryoneAPI Credentials
+```
+// Set EveryoneAPI Credentials
+$api->sid = "9e3cef42da225d42bd86feaa80ff47";
+$api->token = "65f3ef01462c62f7f4ce7d2156ceee";
+```
+EveryonePHP needs these credentials in order to query EveryoneAPI. Otherwise, the query will fail. How you obtain and store these credentials is completely up to you, just be sure to set them for each instance of EveryonePHP before calling `query()`.
+
+### Step 3: Set EveryoneAPI Data Points
+```
+// Set EveryoneAPI Data Points
+$data = array("name", "profile", "cnam", "gender", "image", "address", "location", "line_provider", "carrier", "carrier_o", "linetype");
+```
+Each data point is optional and all data points are returned by default, unless otherwise specified. In the same way EveryoneAPI uses a comma separated list of identifiers, EveryonePHP uses a simple array to specify the data points you wish to retrieve. EveryonePHP passes these identifiers directly to EveryoneAPI so you will use the same identifiers here as you would in a cURL request.
+
+For a full list of available Data Points, check the [EveryoneAPI Docs](https://www.everyoneapi.com/docs#data-points).
+
+### Step 4: Perform EveryoneAPI Query
 ```
 // Perform EveryoneAPI query
-$api->query($phone, $datapoints);
+$api->query($phone, $data);
 ```
+Only `$phone` is required for this function. The function performs the query against EveryoneAPI and returns the results as an associative array, in this example, `$api->results`.
+
+### Step 5: Print the Results
+```
+// Print results
+echo $api->results->data->expanded_name->first;
+echo $api->results->data->expanded_name->last;
+echo $api->results->data->expanded_name->carrier;
+```
+EveryonePHP converts the JSON response from EveryoneAPI into an associative array. This allows us to access the entire response for our application. In the above example, we print the first name, last name, and carrier for the given phone number.
+
+### Optional: Error Checking
 ```
 // Check for Error
 if ($api->error) {               // If there's an error
@@ -36,42 +72,7 @@ if ($api->error) {               // If there's an error
    exit(1);                      // Exit with status 1
 }
 ```
-```
-// Print results
-print_r($api->data->data->[datapoint]);
-```
-### Data Point Selection
-
-Just as with the EveryoneAPI, issuing a query without specifying data points will return all available information for the provided phone number. Alternatively, you may supply a comma separated list of data points to return.
-
-- Use `name` to query for the *name* data point.
-- Use `profile` to query for the *profile* data point.
-- Use `cnam` to query for the *cnam* data point.
-- Use `gender` to query for the *gender* data point.
-- Use `image` to query for the *image* data point.
-- Use `address` to query for the *address* data point.
-- Use `location` to query for the *location* data point. (Included free with `address`)
-- Use `provider` to query for the *provider* data point.
-- Use `carrier` to query for the *carrier* data point.
-- Use `carrier_o` to query for the *carrier_o* data point. (Included free with `carrier`)
-- Use `linetype` to query for the *linetype* data point.
-
-Example:
-```
-// Set phone number
-$phone = 5551234567;
-
-// Set data point selection
-$datapoints = "name,gender,carrier"
-
-// Instantiate EveryonePHP
-$api = new EveryonePHP();
-
-// Perform EveryoneAPI query
-$api->query($phone, $datapoints);
-```
-
-The above code would populate `$api->data->data->name`, `$api->data->data->gender`, `$api->data->data->carrier` (and `$api->data->data->carrier_o` because it is returned free with `carrier`).
+EveryonePHP will assign error messages, if one occurs, to `$api->error`. You can use this in an `if` statement, as shown above, to halt your application if something has gone wrong.
 
 ## Contributing
 
