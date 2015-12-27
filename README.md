@@ -25,14 +25,14 @@ I highly recommend using _Composer_ to install _EveryonePHP_ for your project. _
 I have never been a great programmer. As such, I strived to make EveryonePHP as simple to use as possible and I'm always looking to simplify it even more. Let's build a basic EveryoneAPI client using EveryonePHP:
 
 ### Step 1: Instantiate EveryonePHP as an Object
-```
+```php
 // Instantiate EveryonePHP
 $api = new EveryonePHP();
 ```
 Creating a new EveryonePHP object allows us to interact with the class.
 
 ### Step 2: Set EveryoneAPI Credentials
-```
+```php
 // Set EveryoneAPI Credentials
 $api->sid = "9e3cef42da225d42bd86feaa80ff47";
 $api->token = "65f3ef01462c62f7f4ce7d2156ceee";
@@ -40,7 +40,7 @@ $api->token = "65f3ef01462c62f7f4ce7d2156ceee";
 EveryonePHP needs these credentials in order to query EveryoneAPI. Otherwise, the query will fail. How you obtain and store these credentials is completely up to you, just be sure to set them for each instance of EveryonePHP before calling `query()`.
 
 ### Step 3: Set EveryoneAPI Data Points
-```
+```php
 // Set EveryoneAPI Data Points
 $data = array("name", "profile", "cnam", "gender", "image", "address", "location", "line_provider", "carrier", "carrier_o", "linetype");
 ```
@@ -49,14 +49,14 @@ Each data point is optional and all data points are returned by default, unless 
 For a full list of available Data Points, check the [EveryoneAPI Docs](https://www.everyoneapi.com/docs#data-points).
 
 ### Step 4: Perform EveryoneAPI Query
-```
+```php
 // Perform EveryoneAPI query
 $api->query($phone, $data);
 ```
 Only `$phone` is required for this function. The function performs the query against EveryoneAPI and returns the results as an associative array, in this example, `$api->results`.
 
 ### Step 5: Print the Results
-```
+```php
 // Print results
 echo $api->results->data->expanded_name->first;
 echo $api->results->data->expanded_name->last;
@@ -65,7 +65,7 @@ echo $api->results->data->expanded_name->carrier;
 EveryonePHP converts the JSON response from EveryoneAPI into an associative array. This allows us to access the entire response for our application. In the above example, we print the first name, last name, and carrier for the given phone number.
 
 ### Optional: Error Checking
-```
+```php
 // Check for Error
 if ($api->error) {               // If there's an error
    echo "Error: $api->error";    // Print it out
