@@ -1,12 +1,12 @@
 <?php
 class EveryonePHP {
 
+    public $sid; // EveryoneAPI account SID
+    public $token; // EveryoneAPI account auth token
+    private $query;  // Query function
     public $error; // Contains error messages
+    public $results; // Contains results stdClass object
 
-    public $sid; // EveryoneAPI Account SID
-    public $token; // EveryoneAPI Account Auth Token
-
-    public $query;  // Query Results Array
 
     function __construct() {
         $this->client = new \GuzzleHttp\Client();
