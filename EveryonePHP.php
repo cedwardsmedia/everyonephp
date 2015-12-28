@@ -1,7 +1,6 @@
 <?php
 class EveryonePHP {
 
-    public $http;
     public $error; // Contains error messages
 
     public $sid; // EveryoneAPI Account SID
