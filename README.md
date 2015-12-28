@@ -53,7 +53,7 @@ For a full list of available Data Points, check the [EveryoneAPI Docs](https://w
 // Perform EveryoneAPI query
 $api->query($phone, $data);
 ```
-Only `$phone` is required for this function. The function performs the query against EveryoneAPI and returns the results as an associative array, in this example, `$api->results`.
+Only `$phone` is required for this function. The function performs the query against EveryoneAPI and stores the results in a stdClass object, in this example, `$api->results`.
 
 ### Step 5: Print the Results
 ```php
@@ -68,7 +68,7 @@ echo $api->results->data->expanded_name->last;
 // Print carrier name
 echo $api->results->data->carrier->name;
 ```
-EveryonePHP converts the JSON response from EveryoneAPI into an associative array. This allows us to access the entire response for our application. In the above example, we print the first name, last name, and carrier for the given phone number.
+EveryonePHP converts the JSON response from EveryoneAPI into a stdClass object. This allows us to access the entire response for our application. In the above example, we print the first name, last name, and carrier for the given phone number.
 
 ### Optional: Error Checking
 ```php
