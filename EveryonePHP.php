@@ -11,6 +11,9 @@ class EveryonePHP {
 
     function __construct() {
         $this->client = new \GuzzleHttp\Client();
+
+        // Set which version of EveryoneAPI to use.
+        define("APIVersion", "1");
     }
 
     public function query($phone, $data) {
