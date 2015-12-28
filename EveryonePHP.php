@@ -24,7 +24,7 @@ class EveryonePHP {
 
         // Query EveryoneAPI and handle error-based HTTP Response Codes as exceptions
         try {
-            $response = $this->client->get("http://api.everyoneapi.com/v".APIVersion."/phone/$phone?data=$datapoints&account_sid=$sid&auth_token=$token");
+            $response = $this->client->get("http://api.everyoneapi.com/v".APIVersion."/phone/$phone?data=$datapoints&account_sid=$this->sid&auth_token=$this->token");
 
         } catch (Exception $exception) {
             if (strstr($exception->getMessage(), '400')) {
