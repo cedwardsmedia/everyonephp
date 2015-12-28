@@ -19,7 +19,7 @@ class EveryonePHP {
     public function query($phone, $data) {
 
         // Implode our $datapoints array into a comma-separated list
-        if (isset($datapoints)) {
+        if (isset($data)) {
             $datapoints = implode(',', $data);
         }
 
