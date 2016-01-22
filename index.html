@@ -103,7 +103,7 @@
 <span class="pl-s1">   <span class="pl-k">exit</span>(<span class="pl-c1">1</span>);                      <span class="pl-c">// Exit with status 1</span></span>
 <span class="pl-s1">}</span></pre></div>
 
-<p>EveryonePHP will assign error messages, if one occurs, to <code>$api-&gt;error</code>. You can use this in an <code>if</code> statement, as shown above, to halt your application if something has gone wrong.</p>
+<p>EveryonePHP will assign error messages, if one occurs, to <code>$api-&gt;error</code>. You can use this in an <code>if</code> statement, as shown above, to halt your application if something has gone wrong. Keep in mind that not all errors are fatal. Therefore, you may get all of the data points you requested back from the server, and an error may have still occurred, so it is wise to always check this property after performing a query.</p>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
