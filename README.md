@@ -3,7 +3,7 @@
 [![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
 [![Version](https://img.shields.io/badge/version-1.0.0--beta-brightgreen.svg?style=flat-square)]()
 [![Total Downloads](https://img.shields.io/packagist/dt/cedwardsmedia/everyonephp.svg?style=flat-square)](https://packagist.org/packages/ropendev/datatablesphp)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square "License")](./LICENSE)
+[![License](https://img.shields.io/badge/license-BSD-lightgrey.svg?style=flat-square "License")](./LICENSE)
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
 
 ## Note ##
@@ -95,7 +95,7 @@ Concept and original codebase: Corey Edwards ([@cedwardsmedia](https://www.twitt
 Optimization and Debugging: Brian Seymour ([@eBrian](http://bri.io))
 
 ## License
-_EveryonePHP_ is licensed under the **MIT License**. See LICENSE for more.
+_EveryonePHP_ is licensed under the **BSD Simplified License**. See LICENSE for more.
 
 ---
 **Disclaimer**: _EveryonePHP_ is not endorsed by, sponsored by, or otherwise associated with [OpenCNAM](http://www.opencnam.com), [EveryoneAPI](http://www.everyoneapi.com), or [Telo USA, Inc](http://www.telo.com).
