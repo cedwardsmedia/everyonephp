@@ -3,7 +3,7 @@
     "description": "Simple Class for querying EveryoneAPI",
     "type": "library",
     "keywords": ["cnam","phone number", "phone lookup", "EveryoneAPI"],
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Corey Edwards",
