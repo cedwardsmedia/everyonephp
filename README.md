@@ -1,7 +1,7 @@
 # EveryonePHP v1.0.0
 
 [![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg?style=flat-square)]()
 [![Total Downloads](https://img.shields.io/packagist/dt/cedwardsmedia/everyonephp.svg?style=flat-square)](https://packagist.org/packages/ropendev/datatablesphp)
 [![License](https://img.shields.io/badge/license-BSD-lightgrey.svg?style=flat-square "License")](./LICENSE.md)
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
