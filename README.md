@@ -1,4 +1,4 @@
-# EveryonePHP v1.0.0
+# EveryonePHP v1.0.1
 
 [![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
 [![Version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg?style=flat-square)]()
