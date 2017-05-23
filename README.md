@@ -95,7 +95,7 @@ Concept and original codebase: Corey Edwards ([@cedwardsmedia](https://www.twitt
 Optimization and Debugging: Brian Seymour ([@eBrian](http://bri.io))
 
 ## License
-_EveryonePHP_ is licensed under the **BSD Simplified License**. See LICENSE.md for more.
+_EveryonePHP_ is licensed under the **BSD Simplified License**. See LICENSE for more.
 
 ---
 **Disclaimer**: _EveryonePHP_ is not endorsed by, sponsored by, or otherwise associated with [OpenCNAM](http://www.opencnam.com), [EveryoneAPI](http://www.everyoneapi.com), or [Telo USA, Inc](http://www.telo.com).
