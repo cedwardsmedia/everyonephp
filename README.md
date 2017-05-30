@@ -2,9 +2,10 @@
 
 [![Source](https://img.shields.io/badge/source-cedwardsmedia/everyonephp-blue.svg?style=flat-square "Source")](https://www.github.com/cedwardsmedia/cnam)
 [![Version](https://img.shields.io/badge/version-1.0.2-brightgreen.svg?style=flat-square)]()
-[![Total Downloads](https://img.shields.io/packagist/dt/cedwardsmedia/everyonephp.svg?style=flat-square)](https://packagist.org/packages/ropendev/datatablesphp)
+[![Total Downloads](https://img.shields.io/packagist/dt/cedwardsmedia/everyonephp.svg?style=flat-square)](https://packagist.org/packages/cedwardsmedia/everyonephp)
 [![License](https://img.shields.io/badge/license-BSD-lightgrey.svg?style=flat-square "License")](./LICENSE.md)
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/cedwardsmedia)
 
 ## Introduction
 _EveryonePHP_ is a PHP library for querying EveryoneAPI. The original code was developed as part of [_CNAM-CLI_](https://github.com/cedwardsmedia/cnam-cli) and [_webCNAM_](https://github.com/cedwardsmedia/webcnam) before being forked into a stand-alone library. If you need a Python module for EveryoneAPI, consider trying [EveryoneAPI.py](https://github.com/cedwardsmedia/everyoneapi.py).
