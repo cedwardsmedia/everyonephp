@@ -7,6 +7,9 @@
 [![Gratipay](https://img.shields.io/gratipay/cedwardsmedia.svg?style=flat-square "License")](https://gratipay.com/~cedwardsmedia/)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/cedwardsmedia)
 
+## STOP
+Due to the purchase of EveryoneAPI by Neustar and their refusal to offer any type of hobbyist access to their service, this project is officially discontinued. 
+
 ## Introduction
 _EveryonePHP_ is a PHP library for querying EveryoneAPI. The original code was developed as part of [_CNAM-CLI_](https://github.com/cedwardsmedia/cnam-cli) and [_webCNAM_](https://github.com/cedwardsmedia/webcnam) before being forked into a stand-alone library. If you need a Python module for EveryoneAPI, consider trying [EveryoneAPI.py](https://github.com/cedwardsmedia/everyoneapi.py).
 
